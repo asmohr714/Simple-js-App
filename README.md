@@ -3,7 +3,7 @@
 To build a small web application with HTML, CSS, and JavaScript that loads
 data from an external API and enables the viewing of data points in detail.
 
-### Exersize 1.1-1.2:
+### Exercize 1.1-1.2:
 
 ● Learn coding practices focusing on the core principles of JavaScript: objects, arrays,
 conditionals, and loops.
