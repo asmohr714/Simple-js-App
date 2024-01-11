@@ -2,12 +2,16 @@
 --primary-color: #476ef9;
 --secondary-color: #fffa08;
 --primary-font-family: 'Poppins', sans-serif;
---primary-font-size: 22px;
+--primary-font-size: 20px;
 --secondary-font-size: 40px;
 }
 
 body {
     background-color: var(--primary-color);
+    font-size: var(--primary-font-size);
+    color: var(--secondary-color);
+    font-family: var(--primary-font-family);
+    line-height: 1.5;
 }
 
 .title {
