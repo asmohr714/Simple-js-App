@@ -1,3 +1,5 @@
+let pokemonRepository = (function () {
+
 let pokemonList = [
 
     {
@@ -41,10 +43,31 @@ let pokemonList = [
         hp: 40,
     }]
 
-    pokemonList.forEach(function(item) {
-        document.write('Name: ' + item.name + '<br>' + 'Type: ' + item.type + '<br>' + 'Height: ' + item.height + '<br>' + 'Weight: ' + item.weight + '<br>' + 'Abilities: ' + item.abilities + '<br>' + 'HP: ' + item.hp);{
-        document.write('<br>');
-        document.write('<br>');
+    function add(pokemon) {
+        if (typeof pokemon === 'object' &&
+        'name' in pokemon) {
+            pokemonList.push(pokemon);
+        } else {
+            console.log('Pokemon is not correct')
         }
-      });
+      }
 
+    function getAll() {
+        return pokemonList;
+      }
+    
+    return {
+        add: add,
+        getAll: getAll
+      };
+    })();
+
+console.log(pokemonRepository.getAll())
+console.log(pokemonRepository.add({name: 'Koffing'}));
+
+
+pokemonRepository.getAll().forEach(function (item) {
+    document.write('Name: ' + item.name + '<br>' + 'Type: ' + item.type + '<br>' + 'Height: ' + item.height + '<br>' + 'Weight: ' + item.weight + '<br>' + 'Abilities: ' + item.abilities + '<br>' + 'HP: ' + item.hp);{
+        document.write('<br>');
+        document.write('<br>');
+    }})
