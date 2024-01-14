@@ -7,14 +7,15 @@
 }
 
 body {
+    margin-left: 20px;
     background-color: var(--primary-color);
     font-size: var(--primary-font-size);
     color: var(--secondary-color);
     font-family: var(--primary-font-family);
-    line-height: 1.5;
+    line-height: 1.2;
 }
 
-.title {
+.main__title {
     text-align: center;
     color: var(--secondary-color);
     font-family: var(--primary-font-family);
