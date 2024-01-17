@@ -21,3 +21,9 @@ body {
     font-family: var(--primary-font-family);
     font-size: var(--secondary-font-size);
 }
+
+.main img {
+    border-color:black;
+    border-width: 2px;
+
+}
