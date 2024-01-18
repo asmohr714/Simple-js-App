@@ -15,7 +15,12 @@ body {
     line-height: 1.2;
 }
 
+.main {
+    display: flexbox;
+    text-align: center;
+}
 .main h1 {
+    display: block;
     text-align: center;
     color: var(--secondary-color);
     font-family: var(--primary-font-family);
@@ -24,6 +29,8 @@ body {
 
 .pokemon-list {
     list-style: none;
+    columns: 4;
+    margin-left: 70px;
 }
 
 .button-class {
@@ -36,7 +43,7 @@ body {
     display: inline-block;
     padding: 16px 32px;
     text-align: center;
-    width: 162px;
+    width: 180px;
     height: 58px;
 }
 
@@ -49,4 +56,13 @@ button:focus,
   opacity: 0.9;
   transform: scale(1.1);
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}px
+
+.main img {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-color: black;
+    border-width: 3px;
+    border-style: solid;
 }

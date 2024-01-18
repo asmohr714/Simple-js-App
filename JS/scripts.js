@@ -1,56 +1,29 @@
 
 
 
+// Pokemon API
+
 let pokemonRepository = (function () {
+    let pokemonList = []
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
-let pokemonList = [
 
-    {
-        name: 'Koffing',
-        type: 'Poison', 
-        height: 0.6,
-        weight: 1,
-        abilities: 'Levitate', 
-        hp: 40
-    },
-    {
-        name: 'Physduck',
-        type: 'Water',
-        height: 0.8,
-        weight: 19.6,
-        abilities: ['Damp',' Cloud-nine',' Swift-swim'],
-        hp: 50
-    },
-    {
-        name: 'Abra',
-        type: 'Psychic', 
-        height: 0.9,
-        weight: 19.5,
-        abilities: ['Synchronize', ' Inner-focus', ' Magic-guard'],
-        hp: 25
-    },
-    {
-        name: 'Caterpie',
-        type: 'Bug',
-        height: 0.3,
-        weight: 2.9,
-        abilities: ['Shield-dust', ' Run-away'],
-        hp: 45,
-    },
-    {
-        name: 'Pidgey',
-        type: ['Flying',' Normal'],
-        height: .03,
-        weight: 1.8,
-        abilities: ['Keen-eye', ' Tangled-feet'],
-        hp: 40,
-    }]
+// Add Image
+
+  var img = document.createElement("img"); 
+ 
+   img.src = "/IMG/pokequestion.png"; 
+   var src = document.getElementById("pokemon-pictures"); 
+     
+   src.appendChild(img);
 
 // Add Pokemon to List
 
 function add(pokemon) {
-    if (typeof pokemon === 'object' &&
-    'name' in pokemon) {
+    if (
+    typeof pokemon === 'object' &&
+    'name' in pokemon
+     ) {
         pokemonList.push(pokemon);
     } else {
         console.log('Pokemon is not correct')
@@ -71,30 +44,69 @@ function addListItem(pokemon){
     let button = document.createElement('button');
     button.innerText = pokemon.name;
     button.classList.add('button-class');
-    button.addEventListener('click', showDetails)
     listpokemon.appendChild(button);
     pokemonList.appendChild(listpokemon);
+    button.addEventListener('click', function(Event) {
+      showDetails(pokemon);    
+    });
 }
 
-function showDetails(e) {
-    if (e.target.matches('button')) {
-      console.log(e.target.innerText);
-    }
+// Fetch Pokemon Items from API
+
+function loadList() {
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+    }).catch(function (e) {
+      console.error(e);
+    })
+  }
+
+// Fetch Pokemon Details from API
+
+function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = details.types;
+    }).catch(function (e) {
+      console.error(e);
+    });
 }
 
-return {
+function showDetails(pokemon) {
+    loadDetails(pokemon).then(function () {
+        console.log(pokemon);
+    });
+}
+
+  return {
     add: add,
     getAll: getAll,
-    addListItem: addListItem
-    };
-
+    addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails,
+    showDetails: showDetails
+  };
 })();
 
 // Print List of Pokemon
 
-pokemonRepository.getAll().forEach(function (pokemon) {
-    pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function() {
+    pokemonRepository.getAll().forEach(function (pokemon) {
+        pokemonRepository.addListItem(pokemon);
 
+});
 });
 
 
