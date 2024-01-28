@@ -98,20 +98,52 @@ function getAll() {
   return pokemonList;
 }
 
-// Function to Create Pokemon buttons
+  // Function to filter pokemons by name
+  function filterByName(name) {
+    let containerElement = document.querySelector('.row');
+    let pokemonNames = pokemonList.map(item => item.name);
 
-function addListItem(pokemon){
-  let pokemonList = document.querySelector('.pokemon-list');
-  let listpokemon = document.createElement('li');
-  let button = document.createElement('button');
-  button.innerText = pokemon.name;
-  button.classList.add('button-class');
-  listpokemon.appendChild(button);
-  pokemonList.appendChild(listpokemon);
-  button.addEventListener('click', function() {
-    showDetails(pokemon);    
-  });
+    pokemonNames.forEach((element) => {
+        let containerChild = document.querySelector(`[id=${element}]`);
+        if (containerChild) {
+         if (!element.match(name)) {
+           containerElement.removeChild(containerChild);
+         }
+        }
+    });
 }
+
+// // Function to Create Pokemon buttons
+
+// function addListItem(pokemon){
+//   let pokemonList = document.querySelector('.pokemon-list');
+//   let listpokemon = document.createElement('li');
+//   let button = document.createElement('button');
+//   button.innerText = pokemon.name;
+//   button.classList.add('button-class');
+//   listpokemon.appendChild(button);
+//   pokemonList.appendChild(listpokemon);
+//   button.addEventListener('click', function() {
+//     showDetails(pokemon);    
+//   });
+// }
+
+  // Create Pokemon Buttons List  
+  function addListItem(pokemon) {
+    let pokemonAddList = document.querySelector('.row');
+    let divElement = document.createElement('div');
+    pokemonAddList.appendChild(divElement);
+    divElement.classList.add('list-group-item','col-12','col-sm-6','col-md-4','col-lg-4');
+    divElement.id = pokemon.name;
+
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.setAttribute('data-id', i++);
+    button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '#exampleModal');  
+    divElement.appendChild(button);
+    button.classList.add('btn','btn-lg','btn-block', 'list-btn');
+  }
 
   // Make Details Visible in Modal
 
@@ -164,6 +196,16 @@ return {
   showDetails: showDetails
 };
 })();
+
+$('#exampleModal').on('show.bs.modal', function(event) {
+  let pokemonID = event.relatedTarget.dataset.id;
+  showDetails(pokemonList[pokemonID]);
+});
+
+$('#searchItem').on('change input', function(event) {
+  let inputText = $('#searchItem').val();
+  filterByName(inputText);
+});
 
 // Print List of Pokemon
 
