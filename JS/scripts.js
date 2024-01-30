@@ -10,12 +10,12 @@ let pokemonRepository = (function () {
 
 // // Add Image
 
-  var img = document.createElement("img"); 
+  // var img = document.createElement("img"); 
 
-  img.src = "/IMG/pokequestion.png"; 
-  var src = document.getElementById("pokemon-pictures"); 
+  // img.src = "/IMG/pokequestion.png"; 
+  // var src = document.getElementById("pokemon-pictures"); 
    
-  src.appendChild(img);
+  // src.appendChild(img);
 
 // Modal Element
 
