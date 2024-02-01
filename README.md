@@ -1,5 +1,6 @@
 # Objective:
 
-To build a small web application with HTML, CSS, and JavaScript that loads
-data from an external API and enables the viewing of data points in detail.
+To build a small web application with HTML, CSS, and JavaScript that 1. loads
+data from an external API 2. enables the viewing of data points in detail 3. shows a modal of the data points
+
 
