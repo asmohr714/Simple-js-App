@@ -94,6 +94,52 @@ modal.addEventListener('click', (e) => {
   }
   });
 
+  // Loading Message Functions
+
+   function showLoadingMessage() {
+     let loadingMessage = document.createElement('p');
+    loadingMessage.textContent = "Catching Pokemon...";
+
+     document.body.appendChild(loadingMessage);
+   }
+
+  // // using hideLoadingMessage
+
+   function hideLoadingMessage() {
+     let loadingMessage = document.querySelector('p');
+     if (loadingMessage) {
+       loadingMessage.remove();
+     }
+   }
+
+    // Function to filter pokemons by name
+
+     function filterByName(name) {
+       let containerElement = document.querySelector('.list-group');
+       let pokemonNames = pokemonList.map(item => item.name);
+  
+       pokemonNames.forEach((element) => {
+           let containerChild = document.querySelector(`[id=${element}]`);
+           if (containerChild) {
+            if (!element.match(name)) {
+              containerElement.removeChild(containerChild);
+            }
+           }
+       });
+   }
+
+  // Filter by name
+
+  //  $('#exampleModal').on('show.bs.modal', function(event) {
+  //    let pokemonID = event.relatedTarget.dataset.id;
+  //    showDetails(pokemonList[pokemonID]);
+  // });
+
+  //  $('#searchItem').on('change input', function(event) {
+  //    let inputText = $('#searchItem').val();
+  //    filterByName(inputText);
+  //  });
+
 
 // Add Pokemon to List
 
@@ -147,7 +193,9 @@ function addEventListenerToButton(button, pokemon) {
 // Fetch Pokemon Items from API
 
 function loadList() {
+  showLoadingMessage();
   return fetch(apiUrl).then(function (response) {
+    hideLoadingMessage();
     return response.json();
   }).then(function (json) {
     json.results.forEach(function (item) {
@@ -165,8 +213,10 @@ function loadList() {
 // Fetch Pokemon Details from API
 
 function loadDetails(item) {
+  showLoadingMessage();
   let url = item.detailsUrl;
   return fetch(url).then(function (response) {
+    hideLoadingMessage();
     return response.json();
   }).then(function (details) {
     item.imageUrlFront = details.sprites.front_default;
